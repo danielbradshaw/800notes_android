@@ -51,6 +51,14 @@ public class IncomingCallReceiver extends BroadcastReceiver {
             
             Log.i("IncomingCallReceiver","Phone went into idle");
         }
+        else if (state.equalsIgnoreCase(TelephonyManager.EXTRA_STATE_OFFHOOK))
+        {
+        	editor.putBoolean(PREFS_CALL_RECEIVED, false);
+            editor.putString(PREFS_LAST_NUMBER, "");
+            editor.commit();
+        	
+            Log.i("IncomingCallReceiver","Call was answered/started");
+        }
 	}
 
 }
