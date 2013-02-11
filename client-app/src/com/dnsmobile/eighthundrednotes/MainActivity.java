@@ -13,18 +13,20 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
 
 public class MainActivity extends ListActivity {
 
+	public static final String EXTRA_PHONE_NUMBER = "extraLastPhoneNumber";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		(new GetJSONAsyncTask()).execute();
+		(new GetJSONAsyncTask(getIntent())).execute();
 	}
 
 	@Override
@@ -36,17 +38,17 @@ public class MainActivity extends ListActivity {
 	
 	class GetJSONAsyncTask extends AsyncTask<Void, Void, Void> {
 		
-        private ArrayList<String> responses;
+        private final ArrayList<String> responses;
+        private final String phoneNumber;
         
-        GetJSONAsyncTask()    {
+        GetJSONAsyncTask(Intent intent) {
         	responses = new ArrayList<String>();
+        	phoneNumber = intent.getStringExtra(EXTRA_PHONE_NUMBER);
         }
         
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-//            ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-//                    android.R.layout.simple_list_item_1, responses);
             ResponseListAdapter responseAdapter = new ResponseListAdapter(MainActivity.this, responses);
             setListAdapter(responseAdapter);
         }
