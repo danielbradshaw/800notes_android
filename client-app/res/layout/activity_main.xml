@@ -1,33 +1,39 @@
- <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-         android:orientation="vertical"
-         android:layout_width="match_parent"
-         android:layout_height="match_parent"
-         android:layout_margin="30dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity" >
 
-     <ImageView
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:adjustViewBounds="true"
-         android:scaleType="centerInside"
-         android:src="@drawable/notes_icon" />
-
-     <TextView
-         android:id="@+id/text_phonenumber"
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:gravity="center"
-         android:visibility="gone"
-         android:background="@android:color/background_light"
-         android:textColor="@android:color/darker_gray" />
-     
-     <ListView android:id="@android:id/list"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"
-               android:background="#FFFFFF"
-               android:layout_weight="1"
-               android:drawSelectorOnTop="false"/>
-         
-	 <LinearLayout
+    <ImageView
+        android:id="@+id/img_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/notes_icon" />
+    
+    <EditText
+        android:id="@+id/text_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center_vertical"
+        android:hint="phone number"
+        android:inputType="phone" 
+        android:imeOptions="actionDone" >
+        <requestFocus></requestFocus>
+    </EditText>
+        
+    <ListView
+        android:id="@android:id/list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" >
+    </ListView>
+    
+    <LinearLayout
 	     android:id="@android:id/empty"
          android:layout_width="match_parent"
          android:layout_height="match_parent"
@@ -40,10 +46,9 @@
 	         android:layout_width="wrap_content"
 	         android:layout_height="wrap_content"
 	         android:layout_gravity="center"
-	         android:layout_weight="1" />
+	         android:layout_weight="1" 
+	         android:visibility="invisible"/>
          
      </LinearLayout>
-         
-     
-     
- </LinearLayout>
+    
+</LinearLayout>

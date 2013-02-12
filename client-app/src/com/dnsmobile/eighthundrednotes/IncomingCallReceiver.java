@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.provider.ContactsContract.PhoneLookup;
 import android.telephony.PhoneNumberUtils;
 import android.telephony.TelephonyManager;
@@ -48,8 +47,8 @@ public class IncomingCallReceiver extends BroadcastReceiver {
         	if (sharedPrefs.getBoolean(PREFS_CALL_RECEIVED, false) && phoneNumber.length() > 0 &&
         			!phoneNumberIsInContacts(context, phoneNumber)) 
         	{
-        		Intent launchIntent = new Intent(context, MainActivity.class);
-        		launchIntent.putExtra(MainActivity.EXTRA_PHONE_NUMBER, sharedPrefs.getString(PREFS_LAST_NUMBER, ""));
+        		Intent launchIntent = new Intent(context, PopupActivity.class);
+        		launchIntent.putExtra(PopupActivity.EXTRA_PHONE_NUMBER, sharedPrefs.getString(PREFS_LAST_NUMBER, ""));
         		launchIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         		context.startActivity(launchIntent);
         	}
