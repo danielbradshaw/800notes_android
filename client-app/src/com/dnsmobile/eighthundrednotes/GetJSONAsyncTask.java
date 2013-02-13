@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import android.app.ListActivity;
 import android.os.AsyncTask;
 import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -65,8 +66,9 @@ public class GetJSONAsyncTask extends AsyncTask<Void, Void, Void> {
 	@Override
 	protected Void doInBackground(Void... params) {
 		String formattedPhoneNumber = PhoneNumberUtils.formatNumber(phoneNumber);
-		String json = retrieveJSON("http://10.1.10.50/800notes/index.php?phonenumber=" + formattedPhoneNumber);
-//		String json = retrieveJSON("http://flashpass.redirectme.net/800notes/index.php?phonenumber=" + formattedPhoneNumber);
+//		String json = retrieveJSON("http://10.1.10.50/800notes/index.php?phonenumber=" + formattedPhoneNumber);
+		String json = retrieveJSON("http://flashpass.redirectme.net/800notes/index.php?phonenumber=" + formattedPhoneNumber);
+		if (TextUtils.isEmpty(json)) return null;
 		
 		try {
 			JSONObject jsonData = new JSONObject(json);
@@ -109,6 +111,7 @@ public class GetJSONAsyncTask extends AsyncTask<Void, Void, Void> {
 			e.printStackTrace();
 		}
 		
+		Log.e("GetJSONAsyncTask", "Failed to reach the server!");
 		return null;
 	}
 }
