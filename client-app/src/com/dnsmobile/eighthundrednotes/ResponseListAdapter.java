@@ -1,5 +1,7 @@
 package com.dnsmobile.eighthundrednotes;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -9,15 +11,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class ResponseListAdapter extends ArrayAdapter<String> {
+public class ResponseListAdapter extends ArrayAdapter<UserResponse> {
 
-	private final Activity mActivity;
-	private final ArrayList<String> mResponses;
+	private final Activity activity;
+	private final ArrayList<UserResponse> responses;
 	
-	public ResponseListAdapter(Activity activity, ArrayList<String> objects) {
+	public ResponseListAdapter(Activity activity, ArrayList<UserResponse> objects) {
 		super(activity, R.layout.response_list_item, objects);
-		this.mActivity = activity;
-		this.mResponses = objects;
+		this.activity = activity;
+		this.responses = objects;
 	}
 
 	@Override
@@ -27,15 +29,20 @@ public class ResponseListAdapter extends ArrayAdapter<String> {
 		
 		if (rowView == null) {
 			// create new response list item view
-			LayoutInflater inflater = mActivity.getLayoutInflater();
+			LayoutInflater inflater = activity.getLayoutInflater();
 			rowView = inflater.inflate(R.layout.response_list_item, null);
 		}
 		
 		TextView nameView = (TextView) rowView.findViewById(R.id.text_name);
-		nameView.setText("Person's Name");
+		nameView.setText(responses.get(position).getUserName());
 		
 		TextView messageView = (TextView) rowView.findViewById(R.id.text_message);
-		messageView.setText(mResponses.get(position));
+		messageView.setText(responses.get(position).getMessage());
+
+		TextView dateView = (TextView) rowView.findViewById(R.id.text_date);
+		DateFormat dateFormat = new SimpleDateFormat("M/dd/yy h:mma");
+		String formattedDate = dateFormat.format(responses.get(position).getPostDate());
+		dateView.setText(formattedDate);
 		
 		return rowView;
 	}
